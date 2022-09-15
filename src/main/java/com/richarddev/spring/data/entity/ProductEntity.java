@@ -2,6 +2,7 @@ package com.richarddev.spring.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity()
+@Builder
 @Table(name = "product_table", schema = "testProject")
 public class ProductEntity {
 
