@@ -24,6 +24,7 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.findAll();
     }
 
+    //fixme add controller for methods
     @Override
     public ProductEntity getProductById(int id) {
         return productRepository.findById(id).orElse(null);
