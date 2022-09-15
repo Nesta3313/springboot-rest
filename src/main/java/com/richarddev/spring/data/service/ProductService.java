@@ -1,6 +1,7 @@
 package com.richarddev.spring.data.service;
 
 import com.richarddev.spring.data.entity.ProductEntity;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface ProductService {
     ProductEntity getProductByName(String name);
     ProductEntity updateProduct(ProductEntity product, int id);
     void deleteProduct(int id);
+
+
 
 
 }
