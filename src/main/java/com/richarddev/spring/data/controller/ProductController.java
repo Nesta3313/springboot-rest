@@ -29,9 +29,26 @@ public class ProductController {
         return productService.getProducts();
     }
 
+    @GetMapping("/products/name/{name}")
+    public List<ProductEntity> getProductByName(@PathVariable String name) {
+        return productService.getProductsByName(name);
+    }
+
+
+    @GetMapping("/products/{id}")
+    public ProductEntity getProductById(@PathVariable int id) {
+        return productService.getProductById(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public ProductEntity updateProduct(@RequestBody ProductEntity product, @PathVariable int id) {
+        return productService.updateProduct(product, id);
+    }
+
+
     @DeleteMapping("/delete/{id}")
     public HttpStatus deleteProduct(@PathVariable int id) {
         productService.deleteProduct(id);
-        return HttpStatus.GONE;
+        return HttpStatus.NO_CONTENT;
     }
 }

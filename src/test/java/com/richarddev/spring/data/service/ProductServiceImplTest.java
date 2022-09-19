@@ -11,10 +11,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.COLLECTION;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -90,18 +92,18 @@ class ProductServiceImplTest {
         assertThat(product.getName()).isEqualTo("Toyota");
         assertThat(product.getQuantity()).isEqualTo(400);
     }
-
+//
     @Test
     @DisplayName("GIven product exist should return product by name")
     public void givenProductExistShouldReturnProductByName() {
-        given(repository.findByName(anyString())).willReturn(sut);
+        given(repository.findByName(anyString())).willReturn((Collections.singletonList(sut)));
 
 
-        ProductEntity product = productService.getProductByName(sut.getName());
+        List<ProductEntity> product = productService.getProductsByName(sut.getName());
 
-        assertThat(product.getName()).isEqualTo("Toyota");
-        assertThat(product.getQuantity()).isEqualTo(400);
-        assertThat(product.isAvailable()).isEqualTo(true);
+        assertThat(product.get(0).getName()).isEqualTo("Toyota");
+        assertThat(product.get(0).getQuantity()).isEqualTo(400);
+        assertThat(product.get(0).isAvailable()).isEqualTo(true);
 
     }
 
