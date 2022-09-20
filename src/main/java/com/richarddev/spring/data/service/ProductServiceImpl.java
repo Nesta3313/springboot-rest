@@ -1,6 +1,8 @@
 package com.richarddev.spring.data.service;
 
 import com.richarddev.spring.data.entity.ProductEntity;
+import com.richarddev.spring.data.exception.ProductExistException;
+import com.richarddev.spring.data.exception.ProductNotFoundException;
 import com.richarddev.spring.data.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductEntity saveProduct(ProductEntity products) {
+        LOGGER.info("Inside the saveProduct of product controller");
+        if(productRepository.findById(products.getProduct_id()).isPresent()){
+            throw new ProductExistException(String.format("Product %s already exists", products.getName()));
+        }
+
         return productRepository.save(products);
 
     }
@@ -31,13 +38,24 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductEntity getProductById(int id) {
+
+
         Optional<ProductEntity> product = productRepository.findById(id);
+        if(product.isEmpty()) {
+            throw new ProductNotFoundException(String.format("Product %s not found", id));
+        }
         LOGGER.info("Inside getProductsById of product controller");
         return product.get();
     }
 
     @Override
     public List<ProductEntity> getProductsByName(String name) {
+        List<ProductEntity> product = productRepository.findByName(name);
+        if(product.isEmpty()) {
+            throw new ProductNotFoundException(String.format("Product %s not found", name));
+        }
+
+
         return productRepository.findByName(name);
     }
 

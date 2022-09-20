@@ -2,6 +2,7 @@ package com.richarddev.spring.data.controller;
 
 
 import com.richarddev.spring.data.entity.ProductEntity;
+import com.richarddev.spring.data.exception.ProductExistException;
 import com.richarddev.spring.data.service.ProductService;
 import com.richarddev.spring.data.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ProductController {
 
     @PostMapping("/post")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductEntity saveProduct(@RequestBody ProductEntity products) {
+    public ProductEntity saveProduct(@RequestBody ProductEntity products) throws ProductExistException {
         return productService.saveProduct(products);
     }
 

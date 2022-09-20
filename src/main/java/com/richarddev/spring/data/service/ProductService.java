@@ -1,6 +1,7 @@
 package com.richarddev.spring.data.service;
 
 import com.richarddev.spring.data.entity.ProductEntity;
+import com.richarddev.spring.data.exception.ProductExistException;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
